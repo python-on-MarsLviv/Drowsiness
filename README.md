@@ -15,7 +15,7 @@
 * to run application in terminal: python main.py
 
 ### Application preentscreen
-![printscreen](screen.png)
+![printscreen](img/screen.png)
 
 ### Links
 * Who is interesting with computer vision I recommending this place: www.pyimagesearch.com
