@@ -1,0 +1,197 @@
+#:import MeshLinePlot kivy.garden.graph.MeshLinePlot
+
+<DropDownCamera>:
+    Button:
+        text: 'My first Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item1')
+    Label:
+        text: 'Unselectable item'
+        size_hint_y: None
+        height: 44
+    Button:
+        text: 'My second Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item2')
+
+<Container>:
+
+	orientation: 'horizontal'
+
+	link_to_btn_camera: btn_camera
+	link_to_btn_show_video: btn_show_video
+	link_to_slider_delay: slider_delay
+	link_to_slider_quality: slider_quality
+	link_to_slider_eyes_tuner: slider_eyes_tuner
+	link_to_image: image
+	link_to_start_stop: start_stop
+	link_to_label_fps: label_fps
+	link_to_graph: graph
+	link_to_layout: layout
+
+	BoxLayout:		# menu
+		id: layout
+		orientation: 'vertical'
+		size_hint: None, 1
+		size: 300, 300
+		canvas:
+			Color:
+				rgb: 0, 0, 0
+			Rectangle:
+				size: self.size
+
+		BoxLayout:	# camera
+			padding: 5
+			spacing: 10
+			size_hint: 1, .2
+
+			Button:
+				id: btn_camera
+				font_size: '15sp'
+				text: 'First Camera'
+				on_press: root.on_choose_camera(btn_camera.text)
+
+			Button:
+				id: btn_show_video
+				font_size: '15sp'
+				text: 'Show video'
+				on_release: root.on_show_video(btn_show_video.text)
+
+
+		BoxLayout:	# delay
+			padding: 10
+			size_hint: 1, .2
+
+			Label:
+				font_size: '15sp'
+				text: 'Delay'
+				text_size: self.size
+				halign: 'left'
+				valign: 'center'
+
+			Slider:
+				id: slider_delay
+				min: 1
+				max: 3
+				step: 1
+				value: 2
+				on_value: root.on_slider_delay(slider_delay.value)
+			Label:
+	        	text: str(slider_delay.value) + ' seconds'
+	        BoxLayout:
+	        	padding: [10, 10, 10, 10]
+		        Button:
+		        	text: '?'
+	        		on_press: self.text = 'Delay to\ndetect\ndrowsiness'
+	        		on_release: self.text = '?'
+
+		BoxLayout:	# quality
+			padding: 10
+			size_hint: 1, .2
+
+			Label:
+				font_size: '15sp'
+				text: 'Quality'
+				text_size: self.size
+				halign: 'left'
+				valign: 'center'
+
+			Slider:
+				id: slider_quality
+				min: 25
+				max: 100
+				step: 25
+				value: 50
+				on_value: root.on_slider_quality(slider_quality.value)
+			Label:
+	        	text: str(slider_quality.value) + ' %'
+	        BoxLayout:
+	        	padding: [10, 10, 10, 10]
+		        Button:
+		        	text: '?'
+		        	on_press: self.text = 'Reduse image\nbefore checking'
+	        		on_release: self.text = '?'
+
+		BoxLayout:	# eye_tuner
+			padding: 10
+			size_hint: 1, .2
+
+			Label:
+				font_size: '15sp'
+				text: 'Eyes tuner'
+				text_size: self.size
+				halign: 'left'
+				valign: 'center'
+
+			Slider:
+				id: slider_eyes_tuner
+				min: .1
+				max: .4
+				step: .01
+				value: .3
+				on_value: root.on_slider_ear(slider_eyes_tuner.value)
+			Label:
+	        	text: str(slider_eyes_tuner.value)
+	        BoxLayout:
+	        	padding: [10, 10, 10, 10]
+		        Button:
+		        	text: '?'
+		        	on_press: self.text = 'Fit detector\nto your eyes'
+	        		on_release: self.text = '?'
+
+		BoxLayout:	# start/stop
+			padding: 5
+			spacing: 10
+			size_hint: 1, .2
+			
+			Button:
+				id: start_stop
+				font_size: '15sp'
+				text: 'Start'
+				on_release:
+					root.on_start()
+
+			Label:
+				id: label_fps
+				font_size: '15sp'
+				text: 'fps: 0'
+
+		BoxLayout:	# plot
+			padding: 5
+			spacing: 10
+			size_hint: 1, .2
+
+			Label:
+				font_size: '15sp'
+				text: 'Drowsy level'
+				size_hint: .3, 1
+
+			Graph:
+				id: graph
+				padding: 5
+				xmin: 0
+				xmax: 100
+				ymin: -0.4
+				ymax: .4
+				size_hint: .7, 1
+
+		BoxLayout:
+			padding: 5
+			spacing: 10
+			size_hint: 1, .3
+
+			Image:
+				source: 'img/small_logo.png'
+				size: self.texture_size
+
+
+	AnchorLayout:
+
+		Image:
+			id: image
+			#source: 'img/big_logo.png'
+			size: self.texture_size
+			
+
